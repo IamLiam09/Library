@@ -12,70 +12,58 @@
 		<header>
 			<h1><em>Library</em></h1>
 		</header>
-		<main>
-			<section id="section">
-				<img src="Svg.png" alt="" class="img" />
-				<form action="" class="modal" id="form">
-					<h2 class="modaltext">New book</h2>
-					<span class="topcon"></span>
-					<label for="title"
-						><h2>Title:</h2>
-						<input
-							type="text"
-							class="text"
-							id="title"
-							placeholder="Rich dad Poor dad"
-						/>
-					</label>
-					<label for="author"
-						><h2>Author:</h2>
-						<input
-							type="text"
-							class="text"
-							id="author"
-							placeholder="Robert Kiosaki"
-						/>
-					</label>
-					<label for="pages"
-						><h2>Pages:</h2>
-						<input type="number" class="text" id="pages" placeholder="259" />
-					</label>
-					<div class="fleld">
-						<input type="radio" id="read" name="check" />
-						<label for="read">Read</label>
-						<input type="radio" id="unread" name="check" />
-						<label for="read">Unread</label>
-					</div>
-					<a href="" class="modalbtn">Submit</a>
-				</form>
-			</section>
-			<!-- <div class="card">
-				<img src="cardimg.svg" alt="" />
-				<h4 class="title">You don't know Javascript</h4>
-				<p class="author">Robert kiosaki</p>
-				<p class="noofpages">200</p>
+		<form action="" class="modal" id="form">
+			<h2 class="modaltext">New book</h2>
+			<span class="topcon"></span>
+			<label for="title"
+				><h2>Title:</h2>
+				<input
+					type="text"
+					class="text"
+					id="title"
+					placeholder="Rich dad Poor dad"
+				/>
+			</label>
+			<label for="author"
+				><h2>Author:</h2>
+				<input
+					type="text"
+					class="text"
+					id="author"
+					placeholder="Robert Kiosaki"
+				/>
+			</label>
+			<label for="pages"
+				><h2>Pages:</h2>
+				<input type="number" class="text" id="pages" placeholder="259" />
+			</label>
+			<div class="fleld">
+				<input type="radio" id="read" name="check" />
+				<label for="read">Read</label>
+				<input type="radio" id="unread" name="check" />
+				<label for="read">Unread</label>
 			</div>
-			<div class="card">
-				<img src="cardimg.svg" alt="" />
-				<h4 class="title">You don't know Javascript</h4>
-				<p class="author">Robert kiosaki</p>
-				<p class="noofpages">200</p>
-			</div> -->
+			<button class="modalbtn" id="sumbitButton">Submit</button>
+		</form>
+		<main>
+			<img src="Svg.png" alt="" class="img" />
 		</main>
+		<!-- The footer for the mobile -->
 		<div class="mobile footer">
 			<div class="invisible">
-				<button class="inn_btn" id="add" data-target>
+				<button class="inn_btn" id="add" tabindex="1" data-target>
 					<span class="crss one"></span>
 					<span class="crss two"></span>
 				</button>
 			</div>
-			<div class="outercircle footer">
-				<button class="btn" id="add" data-target>
+			<!-- The add green button -->
+			<div class="outercircle button">
+				<button class="btn" id="add" tabindex="1" data-target>
 					<span class="cross one"></span>
 					<span class="cross two"></span>
 				</button>
 			</div>
 		</div>
-		<script src="script.js"></script>
+		<script src="script.js" defer></script>
 	</body>
 </html>
