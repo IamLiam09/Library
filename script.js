@@ -11,11 +11,9 @@ const sumbitButton = document.querySelector("#sumbitButton");
 var para1;
 var para2;
 var para3;
-var titleValue
-var authorValue
-var pagesValue
-let initial = true;
-let secondphase = false;
+var titleValue;
+var authorValue;
+var pagesValue;
 let myLibrary = [];
 // The book class
 function Book(title, author, pages, read) {
@@ -27,13 +25,10 @@ function Book(title, author, pages, read) {
 		return `The ${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
 	};
 }
+// add book to library
 function addBookToLibrary(abook) {
 	myLibrary.push(abook);
 }
-
-// const intialphase = () => {
-// 	initial = false;
-// };
 let came = () => {
 	myLibrary.forEach((lib) => {
 		para1 = lib.title;
@@ -45,7 +40,8 @@ let came = () => {
 const modal = function () {
 	img.style.display = "none";
 	modalbox.style.display = "flex";
-};	
+};
+// The card creation
 let librarycard = (paraTitle, paraAuthor, paraPages) => {
 	const carddiv = document.createElement("div");
 	const cardImg = document.createElement("img");
@@ -66,19 +62,13 @@ let librarycard = (paraTitle, paraAuthor, paraPages) => {
 	carddiv.append(noofpages);
 	return carddiv;
 };
-// getting details from library
-// const fromlibrary = myLibrary =>{
-// 	myLibrary.forEach(lib => {
-// 		return `${lib.title} ${lib.author} ${lib.pages}`
-// 	})
-// }
-// update display
-const update = function () {
-	appendCard(e)
-	var dispBook = new Book(titleValue, authorValue, pagesValue)
+// The update display function
+const update = () => {
+	var dispBook = new Book(titleValue, authorValue, pagesValue);
 	addBookToLibrary(dispBook);
 	came();
 	main.append(librarycard(para1, para2, para3));
+	appendCard();
 };
 function appendCard(e) {
 	e.preventDefault();
@@ -88,29 +78,9 @@ function appendCard(e) {
 	titleel.value = "";
 	authorel.value = "";
 	pageel.value = "";
-	modalForm.style.display = "none"
+	modalForm.style.display = "none";
+	update()
 }
-modalForm.addEventListener("submit", update);
-// sumbitButton.addEventListener("click", clearForm);
-// add an event listener for when the button is clicked it make the modal pop up
+modalForm.addEventListener("submit", appendCard);
 btn.forEach((btns) => btns.addEventListener("click", modal));
-// let caset = new Book("main", "sort", 98, "read");
-// let casets = new Book("case", "sort", 98, "read");
-// let casett = new Book("java", "sort", 98, "read");
-// let casete = new Book("manga", "sort", 98, "read");
-// addBookToLibrary(caset);
-// addBookToLibrary(casets);
-// addBookToLibrary(casett);
-// addBookToLibrary(casete);
-// console.log(myLibrary);
-// Making the card element
 
-// main.append(myLibrary[0])
-// main.append(myLibrary[1])
-// librarycard();
-// librarycard();
-
-
-// came()
-// main.append(librarycard(para1, para2, para3));
-// console.log(came);

@@ -160,6 +160,7 @@ main .img {
 	max-width: 450px;
 	max-height: 300px;
 	border-radius: 10px;
+	overflow-x: hidden;
 	/* background-color: aqua; */
 	color: black;
 	animation: card 0.5s;
