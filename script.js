@@ -6,9 +6,8 @@ const titleel = document.getElementById("title");
 const authorel = document.getElementById("author");
 const pageel = document.getElementById("pages");
 const modalForm = document.getElementById("form");
-var toBeCreated = false;
-var attri 
-var toBeremoved
+var attri;
+var toBeremoved;
 let myLibrary = [];
 // The book class
 function Book(title, author, pages) {
@@ -31,6 +30,18 @@ function addBookToLibrary(e) {
 	pageel.value = "";
 	modalForm.style.display = "none";
 }
+// Toogle read function
+function toggle(e) {
+	let txt = e.innerText;
+	e.innerText = txt == 'Unread' ? 'Read' : 'Unread';
+	const data_index = document.querySelectorAll("[data-index]")
+	let index_value
+	data_index.forEach((data, indx) => {
+		index_value = indx
+	})
+	changeRead(myLibrary, index_value)
+}
+// Display card
 function displayCard(library, container) {
 	main.innerHTML = "";
 	library.forEach((book, i) => {
@@ -40,45 +51,12 @@ function displayCard(library, container) {
 						<h4 class="title">${book.title}</h4>
 						<p class="author">${book.author}</p>
 						<p class="noofpages">${book.pages}</p>
-						<button class="unread readstatus">Unread</button>
+						<button class="unread readstatus" onclick="toggle(this)")>Unread</button>
 					</div>`;
 		const element = document.createElement("div");
 		element.innerHTML = card;
 		container.append(element.firstChild);
 	});
-	toBeCreated = true;
-}
-function toggleRead() {
-	// const readstatus = document.querySelectorAll(".readstatus")
-	// console.log(readstatus)
-	// readstatus.forEach(readStat => {
-	// 	readStat.addEventListener("click", function clicked(){
-	// 	console.log("clicked")
-	// })})
-	// var clicked = false
-	if (!toBeCreated) {
-		toBeCreated = true;
-		const readstatus = document.querySelectorAll(".readstatus");
-		readstatus.forEach((readstatuses) => {
-			readstatuses.addEventListener("click", function toogleClick() {
-				console.log("worked");
-				readstatuses.innerHtml = "Read";
-			});
-		});
-	}
-}
-function runtoggle() {
-	if (toBeCreated) {
-		toggleRead();
-		console.log("working");
-	}
-}
-
-function changeReadStatus(e) {
-	if (e.target.classList.contains("readstatus")) {
-		// console.log("working")
-		toggleRead();
-	}
 }
 // Modal drop
 const modal = function () {
@@ -88,16 +66,14 @@ const modal = function () {
 // Delete book
 function delFromLibrary(e) {
 	if (e.target.classList.contains("delete")) {
-		toBeremoved = e.target.parentNode;
-		console.log(toBeremoved);
 		const dataDex = document.querySelectorAll("[data-index]");
 		dataDex.forEach((dataDexed, attriindex) => {
-			const id  = dataDexed.getAttribute("data-index")
-			attri = attriindex
-		})
-		console.log(attri)
+			attri = attriindex;
+		});
+		myLibrary.splice(attri, 1);
 	}
 }
+// Delete the div of the deleted object
 function delDiv(e) {
 	if (e.target.classList.contains("delete")) {
 		var li = e.target.parentNode;
@@ -108,13 +84,17 @@ function delDiv(e) {
 		main.removeChild(li);
 	}
 }
-// Deleting from the library array
-modalForm.addEventListener("submit", addBookToLibrary);
+// Change the read status from the library
+function changeRead(arr, index){
+	if(arr[index].read === false){
+		arr[index].read = true
+	}else{
+		arr[index].read = false
+	}
+}
+// EventListeners
 btn.forEach((btns) => btns.addEventListener("click", modal));
+modalForm.addEventListener("submit", addBookToLibrary);
 main.addEventListener("click", delFromLibrary);
 main.addEventListener("click", delDiv);
-main.addEventListener("click", changeReadStatus);
-function visibilityOn() {
-	modalForm.style.display = "none";
-}
-main.addEventListener("click", visibilityOn);
+
