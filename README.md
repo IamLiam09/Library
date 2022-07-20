@@ -1,6 +1,6 @@
 # Library App
 ## Preview
-![Mobile preview](images\LibraryM.PNG)
+![Mobile preview](images/LibraryM.PNG)
 ### Odin project library app 
 # Notes
 * Dom manipulation
