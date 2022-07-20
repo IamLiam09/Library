@@ -5,7 +5,11 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="style.css" />
-		<link rel="shortcut icon" href="Present favicon.png" type="image/x-icon" />
+		<link
+			rel="shortcut icon"
+			href="images/Present favicon.png"
+			type="image/x-icon"
+		/>
 		<title>Library</title>
 	</head>
 	<body>
@@ -13,35 +17,51 @@
 			<h1><em>Library</em></h1>
 		</header>
 		<main>
-			<img src="Svg.png" alt="" class="img"/>
-			<form action="" class="modal" id="form">
-				<h2 class="modaltext">New book</h2>
-				<span class="topcon"></span>
-				<label for="title"
-					><h2>Title:</h2>
-					<input
-						type="text"
-						class="text"
-						id="title"
-						placeholder="Rich dad Poor dad"
-					/>
-				</label>
-				<label for="author"
-					><h2>Author:</h2>
-					<input
-						type="text"
-						class="text"
-						id="author"
-						placeholder="Robert Kiosaki"
-					/>
-				</label>
-				<label for="pages"
-					><h2>Pages:</h2>
-					<input type="number" class="text" id="pages" placeholder="259" />
-				</label>
-				<button class="modalbtn" id="sumbitButton">Submit</button>
-			</form>
+			<img src="images/Svg.png" alt="" class="img" />
+			<div class="card" data-index="0">
+				<span class="del button delete"></span>
+				<img src="images/cardimg.svg" />
+				<h4 class="title">Majoring In Physics</h4>
+				<p class="author">Rince Chinedu</p>
+				<p class="noofpages">300</p>
+				<button class="unread readstatus">Read</button>
+			</div>
 		</main>
+		<form action="" class="modal" id="form">
+			<h2 class="modaltext">New book</h2>
+			<span class="topcon"></span>
+			<label for="title"
+				><h2>Title:</h2>
+				<input
+					type="text"
+					class="text"
+					id="title"
+					placeholder="Rich dad Poor dad"
+					required
+				/>
+			</label>
+			<label for="author"
+				><h2>Author:</h2>
+				<input
+					type="text"
+					class="text"
+					id="author"
+					placeholder="Robert Kiosaki"
+					required
+				/>
+			</label>
+			<label for="pages"
+				><h2>Pages:</h2>
+				<input
+					type="number"
+					class="text"
+					id="pages"
+					placeholder="259"
+					required
+				/>
+			</label>
+			<button class="modalbtn" id="sumbitButton">Submit</button>
+		</form>
 		<!-- The footer for the mobile -->
 		<div class="mobile footer">
 			<div class="invisible">

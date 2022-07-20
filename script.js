@@ -6,81 +6,115 @@ const titleel = document.getElementById("title");
 const authorel = document.getElementById("author");
 const pageel = document.getElementById("pages");
 const modalForm = document.getElementById("form");
-const card = document.querySelector(".card");
-const sumbitButton = document.querySelector("#sumbitButton");
-var para1;
-var para2;
-var para3;
-var titleValue;
-var authorValue;
-var pagesValue;
+var toBeCreated = false;
+var attri 
+var toBeremoved
 let myLibrary = [];
 // The book class
-function Book(title, author, pages, read) {
+function Book(title, author, pages) {
 	this.title = title;
 	this.author = author;
 	this.pages = pages;
-	this.read = read;
-	this.info = function () {
-		return `The ${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
-	};
 }
+Book.prototype.read = false;
 // add book to library
-function addBookToLibrary(abook) {
-	myLibrary.push(abook);
+function addBookToLibrary(e) {
+	e.preventDefault();
+	let titleValue = titleel.value;
+	let authorValue = authorel.value;
+	let pageValue = pageel.value;
+	let currentBook = new Book(titleValue, authorValue, pageValue);
+	myLibrary.push(currentBook);
+	displayCard(myLibrary, main);
+	titleel.value = "";
+	authorel.value = "";
+	pageel.value = "";
+	modalForm.style.display = "none";
 }
-let came = () => {
-	myLibrary.forEach((lib) => {
-		para1 = lib.title;
-		para2 = lib.author;
-		para3 = lib.pages;
+function displayCard(library, container) {
+	main.innerHTML = "";
+	library.forEach((book, i) => {
+		const card = `<div class="card" data-index = ${i}>
+						<span class="del button delete"></span>
+						<img src="images/cardimg.svg">
+						<h4 class="title">${book.title}</h4>
+						<p class="author">${book.author}</p>
+						<p class="noofpages">${book.pages}</p>
+						<button class="unread readstatus">Unread</button>
+					</div>`;
+		const element = document.createElement("div");
+		element.innerHTML = card;
+		container.append(element.firstChild);
 	});
-};
+	toBeCreated = true;
+}
+function toggleRead() {
+	// const readstatus = document.querySelectorAll(".readstatus")
+	// console.log(readstatus)
+	// readstatus.forEach(readStat => {
+	// 	readStat.addEventListener("click", function clicked(){
+	// 	console.log("clicked")
+	// })})
+	// var clicked = false
+	if (!toBeCreated) {
+		toBeCreated = true;
+		const readstatus = document.querySelectorAll(".readstatus");
+		readstatus.forEach((readstatuses) => {
+			readstatuses.addEventListener("click", function toogleClick() {
+				console.log("worked");
+				readstatuses.innerHtml = "Read";
+			});
+		});
+	}
+}
+function runtoggle() {
+	if (toBeCreated) {
+		toggleRead();
+		console.log("working");
+	}
+}
+
+function changeReadStatus(e) {
+	if (e.target.classList.contains("readstatus")) {
+		// console.log("working")
+		toggleRead();
+	}
+}
 // Modal drop
 const modal = function () {
 	img.style.display = "none";
 	modalbox.style.display = "flex";
 };
-// The card creation
-let librarycard = (paraTitle, paraAuthor, paraPages) => {
-	const carddiv = document.createElement("div");
-	const cardImg = document.createElement("img");
-	const titleWord = document.createElement("h4");
-	const authorname = document.createElement("p");
-	const noofpages = document.createElement("p");
-	carddiv.className = "card";
-	cardImg.src = "cardimg.svg";
-	titleWord.className = "title";
-	authorname.className = "author";
-	noofpages.className = "noofpages";
-	titleWord.textContent = paraTitle;
-	authorname.textContent = paraAuthor;
-	noofpages.textContent = paraPages;
-	carddiv.append(cardImg);
-	carddiv.append(titleWord);
-	carddiv.append(authorname);
-	carddiv.append(noofpages);
-	return carddiv;
-};
-// The update display function
-const update = () => {
-	var dispBook = new Book(titleValue, authorValue, pagesValue);
-	addBookToLibrary(dispBook);
-	came();
-	main.append(librarycard(para1, para2, para3));
-	appendCard();
-};
-function appendCard(e) {
-	e.preventDefault();
-	titleValue = titleel.value;
-	authorValue = authorel.value;
-	pagesValue = pageel.value;
-	titleel.value = "";
-	authorel.value = "";
-	pageel.value = "";
-	modalForm.style.display = "none";
-	update()
+// Delete book
+function delFromLibrary(e) {
+	if (e.target.classList.contains("delete")) {
+		toBeremoved = e.target.parentNode;
+		console.log(toBeremoved);
+		const dataDex = document.querySelectorAll("[data-index]");
+		dataDex.forEach((dataDexed, attriindex) => {
+			const id  = dataDexed.getAttribute("data-index")
+			attri = attriindex
+		})
+		console.log(attri)
+	}
 }
-modalForm.addEventListener("submit", appendCard);
+function delDiv(e) {
+	if (e.target.classList.contains("delete")) {
+		var li = e.target.parentNode;
+		if (li.classList.contains("delete")) {
+			var mainli = li.parentNode;
+			main.removeChild(mainli);
+		}
+		main.removeChild(li);
+	}
+}
+// Deleting from the library array
+modalForm.addEventListener("submit", addBookToLibrary);
 btn.forEach((btns) => btns.addEventListener("click", modal));
-
+main.addEventListener("click", delFromLibrary);
+main.addEventListener("click", delDiv);
+main.addEventListener("click", changeReadStatus);
+function visibilityOn() {
+	modalForm.style.display = "none";
+}
+main.addEventListener("click", visibilityOn);
