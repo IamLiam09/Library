@@ -14,6 +14,9 @@ const titleel = document.getElementById("title");
 const authorel = document.getElementById("author");
 const pageel = document.getElementById("pages");
 const modalForm = document.getElementById("form");
+const login = document.getElementById("login");
+const body = document.querySelector("body");
+const signUp = document.getElementById("signup");
 var attri;
 var toBeremoved;
 let myLibrary = [];
@@ -35,13 +38,13 @@ function addBookToLibrary(e) {
 // Toogle read function
 function toggle(e) {
 	let txt = e.innerText;
-	e.innerText = txt == 'Unread' ? 'Read' : 'Unread';
-	const data_index = document.querySelectorAll("[data-index]")
-	let index_value
+	e.innerText = txt == "Unread" ? "Read" : "Unread";
+	const data_index = document.querySelectorAll("[data-index]");
+	let index_value;
 	data_index.forEach((data, indx) => {
-		index_value = indx
-	})
-	changeRead(myLibrary, index_value)
+		index_value = indx;
+	});
+	changeRead(myLibrary, index_value);
 }
 // Display card
 function displayCard(library, container) {
@@ -87,16 +90,120 @@ function delDiv(e) {
 	}
 }
 // Change the read status from the library
-function changeRead(arr, index){
-	if(arr[index].read === false){
-		arr[index].read = true
-	}else{
-		arr[index].read = false
+function changeRead(arr, index) {
+	if (arr[index].read === false) {
+		arr[index].read = true;
+	} else {
+		arr[index].read = false;
 	}
 }
+// login
+const logindiv = () => {
+	const display = () => {
+		img.style.display = "none";
+		const addon = document.createElement("form");
+		addon.className = "logindiv";
+		addon.innerHTML = `<h1>login</h1>
+							<div class="inbox">
+								<input type="email" class="email" id="email" required />
+								<label for="email" class="emaillabel">Email</label>
+							</div>
+							<div class="inbox">
+								<input type="password" class="Password" id="password" required />
+								<label for="password" class="password">Password</label>
+								</div>
+							<button class="submit">login</button>`;
+		body.appendChild(addon);
+	};
+	const getValue = () => {
+		const emailValueInput = document.getElementById("email");
+		const passwordValueInput = document.getElementById("password");
+		let emailValue = emailValueInput.value;
+		let passwordValue = passwordValueInput.value;
+		return { emailValue, passwordValue };
+	};
+	const userBooks = (username) => {
+		const user = document.querySelector(".user");
+		let going = user.firstElementChild;
+		let goingnext = user.lastElementChild;
+		user.removeChild(going);
+		user.removeChild(goingnext);
+		user.innerHTML = username.emailValue;
+		const toRemove = document.querySelector(".logindiv");
+		body.removeChild(toRemove);
+	};
+
+	return { display, getValue, userBooks };
+};
+const signupdiv = () => {
+	const display = () => {
+		img.style.display = "none";
+		const addon = document.createElement("form");
+		addon.className = "signupdiv";
+		addon.innerHTML = `
+						<h1>Sign up</h1>
+						<div class="inbox">
+							<input type="text" class="firstname" id="firstname" required />
+							<label for="firstname" class="emaillabel">Firstname</label>
+						</div>
+						<div class="inbox">
+							<input type="text" class="lastname" id="lastname" required />
+							<label for="lastname" class="lastname">lastname</label>
+						</div>
+						<div class="inbox">
+							<input type="email" class="email" id="email" required />
+							<label for="email" class="email">email</label>
+						</div>
+						<div class="inbox">
+							<input type="password" class="password" id="password" required />
+							<label for="password" class="password">password</label>
+						</div>
+						<div class="inbox">
+							<input type="password" class="confirm password" id="confirm password" required />
+							<label for="confirm password" class="password">Confirm Password</label>
+						</div>
+					<button class ="submitS">Sign up</button>
+					`;
+		body.appendChild(addon);
+	};
+	const getValue = () => {
+		const emailValueInput = document.getElementById("email");
+		const passwordValueInput = document.getElementById("password");
+		let emailValue = emailValueInput.value;
+		let passwordValue = passwordValueInput.value;
+		return { emailValue, passwordValue };
+	};
+	const userBooks = (username) => {
+		const user = document.querySelector(".user");
+		let going = user.firstElementChild;
+		let goingnext = user.lastElementChild;
+		user.removeChild(going);
+		user.removeChild(goingnext);
+		user.innerHTML = username.emailValue;
+		const toRemoveSecond = document.querySelector(".signupdiv");
+		body.removeChild(toRemoveSecond);
+	};
+
+	return { display, getValue, userBooks };
+};
+const intia = logindiv();
+const done = intia.display;
+const intiasignup = signupdiv();
+const donesignup = intiasignup.display;
 // EventListeners
 btn.forEach((btns) => btns.addEventListener("click", modal));
 modalForm.addEventListener("submit", addBookToLibrary);
 main.addEventListener("click", delFromLibrary);
 main.addEventListener("click", delDiv);
-
+login.addEventListener("click", done);
+signUp.addEventListener("click", donesignup);
+body.addEventListener("click", (e) => {
+	if (e.target.classList.contains("submit")) {
+		const show = logindiv();
+		show.userBooks(show.getValue());
+	}
+	if (e.target.classList.contains("submitS")) {
+		const show = signupdiv();
+		show.userBooks(show.getValue());
+	}
+});
